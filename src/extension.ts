@@ -6,6 +6,8 @@ let afkPanel: vscode.WebviewPanel | undefined;
 let idleTimer: NodeJS.Timeout | undefined;
 const IDLE_TIMEOUT = 5 * 60 * 1000; // 5 minutes
 
+let immersivePanel: vscode.WebviewPanel | undefined;
+
 export function activate(context: vscode.ExtensionContext) {
     console.log('ArcFlowWS is now active!');
 
@@ -18,7 +20,11 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         vscode.commands.registerCommand('arcflowws.toggleImmersive', () => {
-            vscode.window.showInformationMessage('Immersive Mode coming soon!');
+            if (immersivePanel) {
+                immersivePanel.dispose();
+            } else {
+                showImmersiveMode(context);
+            }
         })
     );
 
@@ -53,7 +59,7 @@ function showAfkScreen(context: vscode.ExtensionContext) {
     afkPanel = vscode.window.createWebviewPanel(
         'arcflowAfk',
         'AFK',
-        vscode.ViewColumn.One,
+        vscode.ViewColumn.Beside,
         {
             enableScripts: true,
             retainContextWhenHidden: true,
@@ -64,9 +70,8 @@ function showAfkScreen(context: vscode.ExtensionContext) {
     const htmlPath = path.join(context.extensionPath, 'media', 'afk', 'afk.html');
     let htmlContent = fs.readFileSync(htmlPath, 'utf8');
 
-    // Update resource paths
-    const cssPath = afkPanel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', 'afk', 'afk.css')));
-    htmlContent = htmlContent.replace('afk.css', cssPath.toString());
+    const cssUri = afkPanel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', 'afk', 'afk.css')));
+    htmlContent = htmlContent.replace('afk.css', cssUri.toString());
 
     afkPanel.webview.html = htmlContent;
 
@@ -78,6 +83,61 @@ function showAfkScreen(context: vscode.ExtensionContext) {
 
     afkPanel.onDidDispose(() => {
         afkPanel = undefined;
+    }, null, context.subscriptions);
+}
+
+function showImmersiveMode(context: vscode.ExtensionContext) {
+    const activeEditor = vscode.window.activeTextEditor;
+    if (!activeEditor) {
+        return;
+    }
+
+    immersivePanel = vscode.window.createWebviewPanel(
+        'arcflowImmersive',
+        'Immersive Mode',
+        vscode.ViewColumn.One,
+        {
+            enableScripts: true,
+            retainContextWhenHidden: true,
+            localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'media', 'immersive'))]
+        }
+    );
+
+    const htmlPath = path.join(context.extensionPath, 'media', 'immersive', 'immersive.html');
+    let htmlContent = fs.readFileSync(htmlPath, 'utf8');
+
+    const cssUri = immersivePanel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', 'immersive', 'immersive.css')));
+    const jsUri = immersivePanel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', 'immersive', 'immersive.js')));
+    
+    htmlContent = htmlContent.replace('immersive.css', cssUri.toString());
+    htmlContent = htmlContent.replace('immersive.js', jsUri.toString());
+
+    immersivePanel.webview.html = htmlContent;
+
+    immersivePanel.webview.postMessage({
+        command: 'init',
+        value: activeEditor.document.getText(),
+        language: activeEditor.document.languageId
+    });
+
+    immersivePanel.webview.onDidReceiveMessage(message => {
+        if (message.command === 'change') {
+            const edit = new vscode.WorkspaceEdit();
+            const fullRange = new vscode.Range(
+                activeEditor.document.positionAt(0),
+                activeEditor.document.positionAt(activeEditor.document.getText().length)
+            );
+            edit.replace(activeEditor.document.uri, fullRange, message.value);
+            vscode.workspace.applyEdit(edit);
+        } else if (message.command === 'cursorChange') {
+            const pos = new vscode.Position(message.ln - 1, message.col - 1);
+            activeEditor.selection = new vscode.Selection(pos, pos);
+            activeEditor.revealRange(new vscode.Range(pos, pos));
+        }
+    });
+
+    immersivePanel.onDidDispose(() => {
+        immersivePanel = undefined;
     }, null, context.subscriptions);
 }
 
