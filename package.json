@@ -43,14 +43,19 @@
     "keybindings": [
       {
         "command": "arcflowws.toggleImmersive",
-        "key": "ctrl+0",
-        "mac": "cmd+0",
+        "key": "ctrl+m a i",
+        "mac": "cmd+m a i",
         "when": "editorTextFocus"
       },
       {
+        "command": "arcflowws.showAfk",
+        "key": "ctrl+m a k",
+        "mac": "cmd+m a k"
+      },
+      {
         "command": "arcflowws.openBrowser",
-        "key": "ctrl+shift+b",
-        "mac": "cmd+shift+b"
+        "key": "ctrl+m a b",
+        "mac": "cmd+m a b"
       }
     ]
   },
