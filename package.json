@@ -4,6 +4,10 @@
   "description": "Premium cinematic coding tools from CodeEditor, ported to VS Code.",
   "version": "0.0.1",
   "publisher": "gtkrshnaaa",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gtkrshnaaa/arcflowws.git"
+  },
   "engines": {
     "vscode": "^1.90.0"
   },
