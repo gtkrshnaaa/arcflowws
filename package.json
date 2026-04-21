@@ -12,7 +12,10 @@
     "Other"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onCommand:arcflowws.toggleImmersive",
+    "onCommand:arcflowws.showAfk",
+    "onCommand:arcflowws.openBrowser"
   ],
   "main": "./out/extension.js",
   "contributes": {

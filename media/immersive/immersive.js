@@ -87,6 +87,7 @@ function initImmersive(value, language) {
 
         updateSpotlight(1);
         updateTimeline(1);
+        vscode.postMessage({ command: 'ready' });
     });
 }
 

@@ -120,14 +120,14 @@ function showImmersiveMode(context: vscode.ExtensionContext) {
 
     immersivePanel.webview.html = htmlContent;
 
-    immersivePanel.webview.postMessage({
-        command: 'init',
-        value: activeEditor.document.getText(),
-        language: activeEditor.document.languageId
-    });
-
     immersivePanel.webview.onDidReceiveMessage(message => {
-        if (message.command === 'change') {
+        if (message.command === 'ready') {
+            immersivePanel?.webview.postMessage({
+                command: 'init',
+                value: activeEditor.document.getText(),
+                language: activeEditor.document.languageId
+            });
+        } else if (message.command === 'change') {
             const edit = new vscode.WorkspaceEdit();
             const fullRange = new vscode.Range(
                 activeEditor.document.positionAt(0),
