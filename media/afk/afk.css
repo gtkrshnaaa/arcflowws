@@ -1,0 +1,112 @@
+:root {
+  --font-mono: 'Consolas', 'Courier New', monospace;
+  --text-muted: #888888;
+  --text-bright: #ffffff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #fff;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+
+.afk-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(25px) saturate(180%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  animation: afkIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes afkIn {
+  from { opacity: 0; backdrop-filter: blur(0px); }
+  to { opacity: 1; backdrop-filter: blur(25px); }
+}
+
+.afk-content {
+  text-align: center;
+  z-index: 2;
+  padding: 40px;
+}
+
+.afk-status-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  animation: afkPulse 4s infinite;
+}
+
+.afk-title {
+  font-size: 48px;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--text-bright);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.afk-subtitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto 60px auto;
+  font-style: italic;
+  opacity: 0.6;
+}
+
+.afk-footer {
+  margin-top: 40px;
+}
+
+.afk-hint {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.5em;
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  opacity: 0.4;
+  animation: afkHintBlink 3s infinite;
+}
+
+@keyframes afkPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+@keyframes afkHintBlink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.5; }
+}
+
+.afk-glitch-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.03) 0px,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  opacity: 0.1;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="afk.css">
+    <title>Away From Keyboard</title>
+</head>
+<body>
+    <div class="afk-overlay">
+        <div class="afk-glitch-layer"></div>
+        <div class="afk-content">
+            <div class="afk-status-tag">SYSTEM IDLE</div>
+            <h1 class="afk-title">AWAY FROM KEYBOARD</h1>
+            <p class="afk-subtitle">"IN THE SILENCE OF THE NIGHT, WE BUILD WORLDS FROM THE VOID"</p>
+            <div class="afk-footer">
+                <span class="afk-hint">PRESS ANY KEY TO RETURN</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        const vscode = acquireVsCodeApi();
+        window.addEventListener('keydown', () => {
+            vscode.postMessage({ command: 'dismiss' });
+        });
+        window.addEventListener('mousedown', () => {
+            vscode.postMessage({ command: 'dismiss' });
+        });
+    </script>
+</body>
+</html>
