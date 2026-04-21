@@ -33,6 +33,11 @@
         "command": "arcflowws.showAfk",
         "title": "ArcFlow: Show AFK Screen",
         "category": "ArcFlow"
+      },
+      {
+        "command": "arcflowws.openBrowser",
+        "title": "ArcFlow: Open Browser",
+        "category": "ArcFlow"
       }
     ],
     "keybindings": [
@@ -41,6 +46,11 @@
         "key": "ctrl+0",
         "mac": "cmd+0",
         "when": "editorTextFocus"
+      },
+      {
+        "command": "arcflowws.openBrowser",
+        "key": "ctrl+shift+b",
+        "mac": "cmd+shift+b"
       }
     ]
   },
