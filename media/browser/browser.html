@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="browser.css">
+    <title>ArcFlow Browser</title>
+</head>
+<body>
+    <div class="browser-container">
+        <div class="browser-toolbar">
+            <button class="browser-btn" id="back-btn" title="Back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M10.5 3.5l-4.5 4.5 4.5 4.5-.7.7-5.2-5.2 5.2-5.2.7.7z"/></svg>
+            </button>
+            <button class="browser-btn" id="forward-btn" title="Forward">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M5.5 3.5l4.5 4.5-4.5 4.5.7.7 5.2-5.2-5.2-5.2-.7.7z"/></svg>
+            </button>
+            <button class="browser-btn" id="reload-btn" title="Reload">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 3c-2.76 0-5 2.24-5 5h1c0-2.21 1.79-4 4-4s4 1.79 4 4-1.79 4-4 4c-.88 0-1.7-.28-2.38-.76l-.7.71C5.8 12.63 6.84 13 8 13c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+            </button>
+            <input type="text" class="browser-url-bar" id="url-bar" value="https://www.google.com" spellcheck="false">
+        </div>
+        <div class="browser-content">
+            <iframe id="browser-iframe" src="https://www.google.com"></iframe>
+        </div>
+    </div>
+    <script>
+        const urlBar = document.getElementById('url-bar');
+        const iframe = document.getElementById('browser-iframe');
+        const backBtn = document.getElementById('back-btn');
+        const forwardBtn = document.getElementById('forward-btn');
+        const reloadBtn = document.getElementById('reload-btn');
+
+        urlBar.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                let url = urlBar.value.trim();
+                if (!url.startsWith('http')) {
+                    url = 'https://' + url;
+                }
+                iframe.src = url;
+            }
+        });
+
+        reloadBtn.addEventListener('click', () => {
+            iframe.src = iframe.src;
+        });
+
+        // Note: iframe back/forward is limited by same-origin policy in browsers
+        // But for a simple port this is the best we can do without a true webview
+        backBtn.addEventListener('click', () => {
+            window.history.back();
+        });
+
+        forwardBtn.addEventListener('click', () => {
+            window.history.forward();
+        });
+    </script>
+</body>
+</html>
