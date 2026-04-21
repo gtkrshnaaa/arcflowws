@@ -1,0 +1,105 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+    overflow: hidden;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+.immersive-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(14px);
+  z-index: 3000;
+}
+
+.immersive-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+  height: 90vh;
+  background-color: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.04),
+    0 30px 80px rgba(0, 0, 0, 0.7);
+  z-index: 3001;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.immersive-editor-container {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Spotlight */
+.immersive-dim-1 { opacity: 0.50 !important; }
+.immersive-dim-2 { opacity: 0.35 !important; }
+.immersive-dim-3 { opacity: 0.22 !important; }
+.immersive-dim-4 { opacity: 0.14 !important; }
+.immersive-dim-5 { opacity: 0.08 !important; }
+
+/* Caret */
+.cursor {
+  transition: all 0.1s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.25) !important;
+}
+
+/* Particle Canvas */
+.immersive-particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Timeline */
+.immersive-timeline {
+  position: absolute;
+  top: 0;
+  right: 6px;
+  bottom: 0;
+  width: 3px;
+  z-index: 10;
+}
+
+.immersive-timeline-track {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.immersive-timeline-indicator {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transition: top 0.3s ease;
+}

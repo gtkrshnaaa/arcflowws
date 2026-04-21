@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="immersive.css">
+    <title>Immersive Mode</title>
+</head>
+<body>
+    <div class="immersive-overlay"></div>
+    <div class="immersive-modal">
+        <div class="immersive-editor-container" id="container"></div>
+        <canvas id="particle-canvas" class="immersive-particle-canvas"></canvas>
+        <div class="immersive-timeline">
+            <div class="immersive-timeline-track"></div>
+            <div class="immersive-timeline-indicator" id="timeline-indicator"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.48.0/min/vs/loader.min.js"></script>
+    <script>
+        const vscode = acquireVsCodeApi();
+    </script>
+    <script src="immersive.js"></script>
+</body>
+</html>
