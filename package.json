@@ -1,0 +1,63 @@
+{
+  "name": "arcflowws",
+  "displayName": "ArcFlowWS",
+  "description": "Premium cinematic coding tools from CodeEditor, ported to VS Code.",
+  "version": "0.0.1",
+  "publisher": "gtkrshnaaa",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Themes",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "themes": [
+      {
+        "label": "Monochrome Dark (ArcFlow)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/monochrome-dark-color-theme.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "arcflowws.toggleImmersive",
+        "title": "ArcFlow: Toggle Immersive Mode",
+        "category": "ArcFlow"
+      },
+      {
+        "command": "arcflowws.showAfk",
+        "title": "ArcFlow: Show AFK Screen",
+        "category": "ArcFlow"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "arcflowws.toggleImmersive",
+        "key": "ctrl+0",
+        "mac": "cmd+0",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "@types/node": "20.x",
+    "typescript": "^5.4.5",
+    "eslint": "^8.57.0",
+    "@typescript-eslint/eslint-plugin": "^7.11.0",
+    "@typescript-eslint/parser": "^7.11.0"
+  }
+}
