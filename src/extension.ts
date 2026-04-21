@@ -28,6 +28,12 @@ export function activate(context: vscode.ExtensionContext) {
         })
     );
 
+    context.subscriptions.push(
+        vscode.commands.registerCommand('arcflowws.openBrowser', () => {
+            showBrowser(context);
+        })
+    );
+
     // Setup Idle Tracking
     setupIdleTracker(context);
 }
@@ -139,6 +145,27 @@ function showImmersiveMode(context: vscode.ExtensionContext) {
     immersivePanel.onDidDispose(() => {
         immersivePanel = undefined;
     }, null, context.subscriptions);
+}
+
+function showBrowser(context: vscode.ExtensionContext) {
+    const panel = vscode.window.createWebviewPanel(
+        'arcflowBrowser',
+        'ArcFlow Browser',
+        vscode.ViewColumn.Beside,
+        {
+            enableScripts: true,
+            retainContextWhenHidden: true,
+            localResourceRoots: [vscode.Uri.file(path.join(context.extensionPath, 'media', 'browser'))]
+        }
+    );
+
+    const htmlPath = path.join(context.extensionPath, 'media', 'browser', 'browser.html');
+    let htmlContent = fs.readFileSync(htmlPath, 'utf8');
+
+    const cssUri = panel.webview.asWebviewUri(vscode.Uri.file(path.join(context.extensionPath, 'media', 'browser', 'browser.css')));
+    htmlContent = htmlContent.replace('browser.css', cssUri.toString());
+
+    panel.webview.html = htmlContent;
 }
 
 export function deactivate() {
