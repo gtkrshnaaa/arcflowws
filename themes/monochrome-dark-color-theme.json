@@ -24,52 +24,84 @@
   },
   "tokenColors": [
     {
-      "scope": "keyword",
+      "scope": [
+        "keyword",
+        "storage.type",
+        "storage.modifier"
+      ],
       "settings": {
-        "foreground": "#c678dd"
+        "foreground": "#ffffff",
+        "fontStyle": "bold"
       }
     },
     {
-      "scope": "comment",
+      "scope": [
+        "entity.name.function",
+        "variable.function",
+        "support.function"
+      ],
       "settings": {
-        "foreground": "#757575",
+        "foreground": "#eeeeee"
+      }
+    },
+    {
+      "scope": [
+        "variable",
+        "entity.name.variable",
+        "variable.parameter"
+      ],
+      "settings": {
+        "foreground": "#cccccc"
+      }
+    },
+    {
+      "scope": [
+        "string",
+        "constant.other.symbol"
+      ],
+      "settings": {
+        "foreground": "#aaaaaa"
+      }
+    },
+    {
+      "scope": [
+        "constant.numeric",
+        "constant.language",
+        "support.constant"
+      ],
+      "settings": {
+        "foreground": "#999999"
+      }
+    },
+    {
+      "scope": [
+        "comment",
+        "punctuation.definition.comment"
+      ],
+      "settings": {
+        "foreground": "#555555",
         "fontStyle": "italic"
       }
     },
     {
-      "scope": "string",
+      "scope": [
+        "punctuation",
+        "meta.brace",
+        "delimiter"
+      ],
       "settings": {
-        "foreground": "#98c379"
+        "foreground": "#888888"
       }
     },
     {
-      "scope": "constant.numeric",
+      "scope": [
+        "entity.name.type",
+        "support.type",
+        "support.class"
+      ],
       "settings": {
-        "foreground": "#d19a66"
-      }
-    },
-    {
-      "scope": "entity.name.function",
-      "settings": {
-        "foreground": "#61afef"
-      }
-    },
-    {
-      "scope": "variable",
-      "settings": {
-        "foreground": "#e06c75"
-      }
-    },
-    {
-      "scope": "entity.name.type",
-      "settings": {
-        "foreground": "#e5c07b"
-      }
-    },
-    {
-      "scope": "punctuation",
-      "settings": {
-        "foreground": "#cccccc"
+        "foreground": "#dddddd",
+        "fontStyle": "underline"
       }
     }
   ]
